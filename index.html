@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background-color:goldenrod;
+    }
+    .cont {
+        text-align: center;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+    #textbox1 {
+        display: block;
+        margin: 0 auto;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    .textBox{
+        display: block;
+        text-align: center;    
+        margin-top: 10px;
+    }
+    .buttonPridat {
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+
+    .nadpis{
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        text-align: center;
+        font-weight: 2000;
+    }
+    .imgL{
+        margin-right: 10px;
+    }
+    .imgR{
+        margin-left: 10px;
+    }
+    hr {
+        border: 0;
+        clear:both;
+        display:block;
+        width: 96%;               
+        background-color:black;
+        height: 1px;
+    }
+</style>
+<body>
+
+    <h1 class="nadpis">
+        <img src="list.png" alt="pist.png" class="imgL" width="50" height="50">
+            Diář
+        <img src="list.png" class="imgR" alt="pist.png" width="50" height="50">
+    </h1>
+
+    <hr>
+
+    <input type="text" id="textbox1" name="Text Box">
+    <button class="buttonPridat" onclick="pridatElement()">Přidat</button>
+
+    <hr>
+
+    <div class="cont" id="kontejner">
+        
+    </div>
+
+    <script>
+        const kontejner = document.getElementById("kontejner");
+        const tlacitkoPridat = document.getElementById("buttonPridat");
+        let hodnota = 1;
+
+        function pridatElement() {
+            const currentDate = new Date().toDateString();
+
+            const container = document.createElement('div');
+            container.className = 'cont';
+
+            const text = document.getElementById("textbox1");
+            const output = document.createTextNode(`Záznam ${currentDate}: ${text.value}`);
+            output.id = `text${hodnota}`;
+            
+            const myBr = document.createElement('br');
+            myBr.id = `br${hodnota}`;
+
+            if(text.value != "" && text.value != null){
+                const buttonOdebrat = document.createElement('button');
+            buttonOdebrat.textContent = 'Odebrat';
+            buttonOdebrat.onclick = function() {
+                removeContainer(this);
+            };
+
+            container.appendChild(output);
+            container.appendChild(myBr);
+            container.appendChild(buttonOdebrat);
+
+            kontejner.appendChild(container);
+            hodnota++;
+            }
+            else{
+                alert("Nezadal jsi text!")
+            }
+
+        }
+
+        function removeContainer(button) {
+            const container = button.parentNode;
+            container.remove();
+            hodnota--;
+        }
+    </script>
+</body>
+</html>
